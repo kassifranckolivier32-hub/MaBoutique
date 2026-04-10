@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Adorachou Boutiqique à Daloa propose des vêtements tendance, un service client fiable et des offres exclusives.">
+    <title>Adorachou Boutiqique</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #f5f6fb;
+            color: #111827;
+            font-size: 16px;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f5f6fb;
+        }
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0.85rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #111827;
+        }
+        .brand::before {
+            content: '🛍️';
+            font-size: 1.2rem;
+        }
+        .search-bar {
+            flex: 1;
+            display: flex;
+            max-width: 600px;
+        }
+        .search-bar input {
+            flex: 1;
+            border: 1px solid #d1d5db;
+            border-right: none;
+            border-radius: 0.75rem 0 0 0.75rem;
+            padding: 0.95rem 1rem;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .search-bar button {
+            border: 1px solid #2563eb;
+            background: #2563eb;
+            color: #ffffff;
+            border-radius: 0 0.75rem 0.75rem 0;
+            padding: 0 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            font-size: 0.95rem;
+            color: #374151;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 2.5rem 2rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #f5f6fb 0%, #ffffff 100%);
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .hero-copy {
+            max-width: 600px;
+        }
+        .hero h1 {
+            font-size: clamp(2.8rem, 4vw, 4.5rem);
+            margin: 0;
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+        }
+        .hero p {
+            margin: 1.5rem 0 2rem;
+            font-size: 1.05rem;
+            color: #4b5563;
+            max-width: 45rem;
+        }
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .button-primary,
+        .button-secondary {
+            padding: 0.95rem 1.6rem;
+            border-radius: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 170px;
+        }
+        .button-primary {
+            background: #f97316;
+            color: #ffffff;
+            border: 1px solid transparent;
+        }
+        .button-secondary {
+            background: #ffffff;
+            color: #111827;
+            border: 1px solid #d1d5db;
+        }
+        .hero-banner {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 1.75rem;
+            padding: 2rem;
+            box-shadow: 0 24px 80px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+            position: relative;
+        }
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top right, rgba(249, 115, 22, 0.14), transparent 34%);
+            pointer-events: none;
+        }
+        .hero-banner h2 {
+            margin: 0 0 1rem;
+            font-size: 1.6rem;
+        }
+        .hero-banner p {
+            color: #4b5563;
+            margin: 0 0 1.75rem;
+            line-height: 1.8;
+        }
+        .hero-image {
+            height: 300px;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+        }
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .products-grid,
+        .category-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .category-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            margin-top: 1.5rem;
+        }
+        .category-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1.25rem;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+        }
+        .category-card h3 {
+            margin: 1rem 0 0.35rem;
+            font-size: 1rem;
+        }
+        .category-card p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+        .products-grid {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            margin-top: 1.75rem;
+        }
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
+        }
+        .product-image {
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .product-content {
+            padding: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            flex: 1;
+        }
+        .product-content h3 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: #111827;
+        }
+        .product-content p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .price {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #111827;
+        }
+        .product-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.2rem;
+            border-radius: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .btn-primary {
+            background: #f97316;
+            color: #ffffff;
+        }
+        .btn-secondary {
+            background: #111827;
+            color: #ffffff;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+        }
+        .label-sale {
+            display: inline-flex;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            background: #fef2f2;
+            color: #b91c1c;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .section-heading {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+        }
+        .section-heading h2 {
+            margin: 0;
+            font-size: 1.55rem;
+        }
+        .section-heading a {
+            font-size: 0.95rem;
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .location-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            box-shadow: 0 16px 50px rgba(15, 23, 42, 0.06);
+            display: grid;
+            gap: 1rem;
+        }
+        .location-card h2 {
+            margin: 0;
+        }
+        .location-card p {
+            margin: 0;
+            color: #4b5563;
+            line-height: 1.8;
+        }
+        footer {
+            padding: 2rem;
+            background: #111827;
+            color: #d1d5db;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        footer p {
+            margin: 0.35rem 0;
+        }
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-banner {
+                order: -1;
+            }
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-wrap: wrap;
+                padding: 1rem;
+            }
+            .search-bar {
+                width: 100%;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            .hero-banner,
+            .products-grid,
+            .category-grid,
+            .location-card {
+                padding: 1.5rem;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .button-primary,
+            .button-secondary {
+                width: 100%;
+            }
+        }
+        .whatsapp-button {
+            position: fixed;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #25d366;
+            color: #ffffff;
+            padding: 0.9rem 1.2rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 16px 40px rgba(37, 211, 102, 0.24);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            z-index: 20;
+        }
+        .whatsapp-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 45px rgba(37, 211, 102, 0.32);
+        }
+        .whatsapp-button span {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="brand">Adorachou Boutiqique</div>
+        <form class="search-bar" role="search">
+            <input type="search" placeholder="Rechercher un produit, une collection..." aria-label="Recherche">
+            <button type="submit">Rechercher</button>
+        </form>
+        <div class="nav-links">
+            <a href="#offers">Offres</a>
+            <a href="#collections">Catégories</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <p style="color:#f97316;font-weight:700;margin:0 0 1rem;text-transform:uppercase;letter-spacing:0.14em;font-size:0.82rem;">Livraison locale à Daloa</p>
+                <h1>La boutique en ligne professionnelle de Daloa pour les vêtements mode et lifestyle.</h1>
+                <p>Adorachou Boutiqique rassemble des articles tendance, des offres exclusives et un service client dédié pour une expérience d’achat simple et sûre.</p>
+                <div class="hero-buttons">
+                    <a class="button-primary" href="#collections">Voir les collections</a>
+                    <a class="button-secondary" href="#offers">Promotions</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="images/AFFICHE.jpeg" alt="Bannière Adorachou Boutiqique">
+            </div>
+        </section>
+
+        <section id="offers">
+            <div class="section-heading">
+                <h2>Offres spéciales</h2>
+                <a href="#">Voir tout</a>
+            </div>
+            <div class="products-grid">
+                <article class="product-card robe">
+                    <div class="product-image"><img src="images/ADORA 1.jpeg" alt="Tenue Adorachou 1"></div>
+                    <div class="product-content">
+                        <span class="label-sale">-25%</span>
+                        <h3>Tenue Adorachou Chic</h3>
+                        <p class="product-description">Coupe moderne et tissu léger pour un look frais et tendance.</p>
+                        <div class="price">12 500 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card ensemble">
+                    <div class="product-image"><img src="images/ADORA 2.jpeg" alt="Tenue Adorachou 2"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Nouveau</span>
+                        <h3>Ensemble Adorachou</h3>
+                        <p class="product-description">Design original et confort optimal pour tous les jours.</p>
+                        <div class="price">15 900 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card robe">
+                    <div class="product-image"><img src="images/ADORA 3.jpeg" alt="Tenue Adorachou 3"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Meilleure vente</span>
+                        <h3>Robe Adorachou</h3>
+                        <p class="product-description">Style affirmé, parfait pour la ville et les sorties.</p>
+                        <div class="price">18 900 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card top">
+                    <div class="product-image"><img src="images/ADORA 4.jpeg" alt="Tenue Adorachou 4"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Offre</span>
+                        <h3>Top Adorachou</h3>
+                        <p class="product-description">Finitions soignées et design élégant.</p>
+                        <div class="price">8 500 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card jupe">
+                    <div class="product-image"><img src="images/ADORA 5.jpeg" alt="Tenue Adorachou 5"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Promo</span>
+                        <h3>Jupe Adorachou</h3>
+                        <p class="product-description">Style moderne et confortable pour toutes occasions.</p>
+                        <div class="price">11 200 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card veste">
+                    <div class="product-image"><img src="images/ADORA 6.jpeg" alt="Tenue Adorachou 6"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Nouveau</span>
+                        <h3>Veste Adorachou</h3>
+                        <p class="product-description">Élégance et praticité au rendez-vous.</p>
+                        <div class="price">22 500 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card pantalon">
+                    <div class="product-image"><img src="images/ADORA 7.jpeg" alt="Tenue Adorachou 7"></div>
+                    <div class="product-content">
+                        <span class="label-sale">-15%</span>
+                        <h3>Pantalon Adorachou</h3>
+                        <p class="product-description">Confort et style pour votre quotidien.</p>
+                        <div class="price">14 800 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card accessoires">
+                    <div class="product-image"><img src="images/ADORA 8.jpeg" alt="Tenue Adorachou 8"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Offre limitée</span>
+                        <h3>Accessoires Adorachou</h3>
+                        <p class="product-description">Complétez votre look avec style.</p>
+                        <div class="price">6 900 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card ensemble-luxe">
+                    <div class="product-image"><img src="images/ADORA 9.jpeg" alt="Tenue Adorachou 9"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Collection limitée</span>
+                        <h3>Ensemble Adorachou Luxe</h3>
+                        <p class="product-description">Pièces exclusives pour un style unique.</p>
+                        <div class="price">25 000 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card collection">
+                    <div class="product-image"><img src="images/ADORA 10.jpeg" alt="Tenue Adorachou 10"></div>
+                    <div class="product-content">
+                        <span class="label-sale">-30%</span>
+                        <h3>Collection Adorachou</h3>
+                        <p class="product-description">Découvrez notre dernière collection tendance.</p>
+                        <div class="price">19 500 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card collection">
+                    <div class="product-image"><img src="images/collection 1.jpeg" alt="Collection Exclusive 1"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Nouveau</span>
+                        <h3>Robe Collection Éclat</h3>
+                        <p class="product-description">Une coupe sophistiquée, parfaite pour les soirées glamour.</p>
+                        <div class="price">23 900 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card collection">
+                    <div class="product-image"><img src="images/collection 2.jpeg" alt="Collection Exclusive 2"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Offre</span>
+                        <h3>Ensemble Collection Prestige</h3>
+                        <p class="product-description">Style chic et finitions luxueuses pour un look raffiné.</p>
+                        <div class="price">27 500 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card collection">
+                    <div class="product-image"><img src="images/collection 3.jpeg" alt="Collection Exclusive 3"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Best-seller</span>
+                        <h3>Top Collection Élégance</h3>
+                        <p class="product-description">Un must-have moderne pour sublimer chaque tenue.</p>
+                        <div class="price">12 800 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card collection">
+                    <div class="product-image"><img src="images/collection 4.jpeg" alt="Collection Exclusive 4"></div>
+                    <div class="product-content">
+                        <span class="label-sale">-20%</span>
+                        <h3>Jupe Collection Couture</h3>
+                        <p class="product-description">Matière noble et coupe flatteuse pour une allure haut de gamme.</p>
+                        <div class="price">16 200 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card collection">
+                    <div class="product-image"><img src="images/collection 6.jpeg" alt="Collection Exclusive 6"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Edition limitée</span>
+                        <h3>Veste Collection Signature</h3>
+                        <p class="product-description">Structure impeccable et détails premium pour un style affirmé.</p>
+                        <div class="price">29 900 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card collection">
+                    <div class="product-image"><img src="images/collection 7.jpeg" alt="Collection Exclusive 7"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Nouveau</span>
+                        <h3>Pantalon Collection Noble</h3>
+                        <p class="product-description">Confort et chic à porter du bureau aux soirées.</p>
+                        <div class="price">18 400 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card robe">
+                    <div class="product-image"><img src="images/SEXY 1.jpeg" alt="Tenue Sexy 1"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Sexy</span>
+                        <h3>Robe Sexy Nuit</h3>
+                        <p class="product-description">Silhouette audacieuse, idéale pour les occasions spéciales.</p>
+                        <div class="price">24 500 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card top">
+                    <div class="product-image"><img src="images/SEXY 2.jpeg" alt="Tenue Sexy 2"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Sexy</span>
+                        <h3>Top Sensation</h3>
+                        <p class="product-description">Coupe flatteuse et détails séducteurs pour un look confiant.</p>
+                        <div class="price">11 900 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card jupe">
+                    <div class="product-image"><img src="images/SEXY 3.jpeg" alt="Tenue Sexy 3"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Hot</span>
+                        <h3>Jupe Sexy Chic</h3>
+                        <p class="product-description">Élégante et tendance pour un style captivant.</p>
+                        <div class="price">13 700 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card ensemble-luxe">
+                    <div class="product-image"><img src="images/SEXY 4.jpeg" alt="Tenue Sexy 4"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Luxe</span>
+                        <h3>Ensemble Sexy Glam</h3>
+                        <p class="product-description">Un duo sophistiqué qui attire tous les regards.</p>
+                        <div class="price">31 500 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card robe">
+                    <div class="product-image"><img src="images/SEXY 5.jpeg" alt="Tenue Sexy 5"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Chic</span>
+                        <h3>Robe Sexy Luxe</h3>
+                        <p class="product-description">Coupe sculptante et allure élégante pour la nuit.</p>
+                        <div class="price">26 900 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card accessoires">
+                    <div class="product-image"><img src="images/SEXY 6.jpeg" alt="Tenue Sexy 6"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Nouveau</span>
+                        <h3>Accessoire Sexy Étoile</h3>
+                        <p class="product-description">Petit détail glamour pour compléter ton look.</p>
+                        <div class="price">9 800 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card top">
+                    <div class="product-image"><img src="images/SEXY 7.jpeg" alt="Tenue Sexy 7"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Tendance</span>
+                        <h3>Top Sexy Deluxe</h3>
+                        <p class="product-description">Style moderne et séduction maîtrisée en un seul vêtement.</p>
+                        <div class="price">14 600 FCFA</div>
+                    </div>
+                </article>
+                <article class="product-card collection">
+                    <div class="product-image"><img src="images/SEXY 8.jpeg" alt="Tenue Sexy 8"></div>
+                    <div class="product-content">
+                        <span class="label-sale">Collection</span>
+                        <h3>Ensemble Sexy Prestige</h3>
+                        <p class="product-description">Parfait pour celles qui veulent un style fort et élégant.</p>
+                        <div class="price">28 900 FCFA</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="collections">
+            <div class="section-heading">
+                <h2>Catégories populaires</h2>
+                <a href="#">Découvrir</a>
+            </div>
+            <div class="category-grid">
+                <div class="category-card">
+                    <div>👚</div>
+                    <h3>Mode femme</h3>
+                    <p>Styles élégants et inspirations actuelles.</p>
+                </div>
+                <div class="category-card">
+                    <div>👖</div>
+                    <h3>Mode homme</h3>
+                    <p>Casual, smart et streetwear.</p>
+                </div>
+                <div class="category-card">
+                    <div>🧢</div>
+                    <h3>Accessoires</h3>
+                    <p>Complète ton look avec goût.</p>
+                </div>
+                <div class="category-card">
+                    <div>🎁</div>
+                    <h3>Cadeaux</h3>
+                    <p>Idées cadeaux pour toutes les occasions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="location-card" id="contact">
+            <h2>Notre boutique à Daloa</h2>
+            <p>Adorachou Boutiqique est située à Daloa, Côte d’Ivoire. Profite de notre service client local, de la livraison rapide et d’une sélection de vêtements de qualité faits pour toi.</p>
+            <p>Livraison disponible partout en Côte d’Ivoire, de Daloa à Abidjan, Bouaké et toutes les régions.</p>
+            <p>Pour toute commande ou information, contacte-nous directement à Daloa.</p>
+        </section>
+
+        <section class="testimonials" id="avis">
+            <div class="section-heading">
+                <h2>Ce que disent nos clients</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Qualité exceptionnelle et livraison rapide ! Les vêtements Adorachou sont exactement comme sur les photos. Je recommande vivement."</p>
+                    <div class="testimonial-author">
+                        <strong>Marie K.</strong> - Daloa
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Service client impeccable. J'ai commandé une robe et elle est arrivée parfaitement à taille. Merci Adorachou !"</p>
+                    <div class="testimonial-author">
+                        <strong>Sophie M.</strong> - Abidjan
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Les prix sont abordables pour la qualité proposée. J'ai déjà commandé 3 fois et je suis toujours satisfaite."</p>
+                    <div class="testimonial-author">
+                        <strong>Aminata D.</strong> - Yamoussoukro
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Boutique sérieuse et professionnelle. Les délais de livraison sont respectés et les produits sont de grande qualité."</p>
+                    <div class="testimonial-author">
+                        <strong>Jean-Paul T.</strong> - Bouaké
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cart-section" id="panier">
+            <div class="section-heading">
+                <h2>Votre Panier</h2>
+            </div>
+            <div class="cart-container">
+                <div id="cart-items">
+                    <p class="empty-cart">Votre panier est vide</p>
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <strong>Total: <span id="cart-total">0 FCFA</span></strong>
+                    </div>
+                    <button class="btn btn-primary" id="checkout-btn" disabled>Commander</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Adorachou Boutiqique • Daloa, Côte d’Ivoire</p>
+        <p>Livraison locale rapide • Paiement sécurisé • Assistance client</p>
+        <p>© 2026 Adorachou Boutiqique</p>
+    </footer>
+    <a class="whatsapp-button" href="https://wa.me/2250153835152" target="_blank" rel="noopener noreferrer">
+        <span>💬</span>
+        <span>WhatsApp</span>
+    </a>
+    <script src="script.js"></script>
+</body>
+</html>
